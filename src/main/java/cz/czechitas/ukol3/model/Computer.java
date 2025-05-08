@@ -67,6 +67,35 @@ public class Computer {
     this.disc = disc;
   }
 
+  // Part 2
+  public void createFileWithSize(long size) {
+    long currentDiscCapacity = disc.getDiscCapacity();
+    long currentUsedSpace = disc.getUsedSpace();
+    long freeSpace = currentDiscCapacity - currentUsedSpace;
+    if (!isSwitchedOn) {
+      System.err.println("Computer is not switched on");
+    }
+    else if (size > freeSpace) {
+      System.err.println("The size of the file is greater than the free space on the disk");
+    }
+    else {
+      disc.setUsedSpace(currentUsedSpace + size);
+    }
+  }
+
+  public void deleteFilesWithSize(long size) {
+    long currentUsedSpace = disc.getUsedSpace();
+    if (!isSwitchedOn) {
+      System.err.println("Computer is not switched on");
+    }
+    else if (size > currentUsedSpace) {
+      disc.setUsedSpace(0);
+    }
+    else {
+      disc.setUsedSpace(currentUsedSpace - size);
+    }
+  }
+
   @Override
   public String toString() {
     return "Computer is switched on: " + isSwitchedOn;
